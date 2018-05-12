@@ -70,23 +70,17 @@ def intersects_other_edges(_from, _to, graph_dic):
 
 if __name__ == "__main__":
 
-    # g = CGraph()
-    # g.add_edge(0, 1)
-    # g.add_edge(1, 2)
-    # g.print_graph()
 
     n = 10  # number of nodes (graph complexity)
-    # x_dom, y_dom, z_dom domains
-    g = CGraph()
+    g = CGraph()  # later could input x, y, z domains to instantiate class
 
     while g.num_nodes < n:
-        # Generate new node or select random from existing ones
 
         # Start if no nodes yet
         if g.num_nodes == 0:
             _from = g.add_node()
         else:
-
+            # Generate new node or select random from existing ones
             new_node = np.random.choice([True, False])
             if new_node or g.num_nodes <= 1:
                 _from = g.add_node()
@@ -105,23 +99,15 @@ if __name__ == "__main__":
                 available_nodes = list(set(g.get_node_ids())-{_from})
                 _to = np.random.choice(available_nodes)
                 # Check if edge already in list and that it does not intersect others
-                if _to not in g.graph_dict[_from] and not intersects_other_edges(_from, _to, g.graph_dict):
+                if _to not in g.graph_dict[_from]['edges'] and not intersects_other_edges(_from, _to, g.graph_dict):
                     edge_exists = False
                     edge_intersects = False
                     g.add_edge(_from, _to)
-
+                    # print('i={}, egde generated! from={} to={}'.format(i, _from, _to))
+                    g.print_graph()
     g.print_graph()
 
     pass
 
 
 
-##############      APPENDIX
-
-# 5,5,0
-# 8,8,0
-# 5,8,0
-# 8,5,0
-# 1,2
-# 2,1
-# 2,3
