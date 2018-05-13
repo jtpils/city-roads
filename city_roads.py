@@ -3,11 +3,6 @@ import numpy as np
 np.random.seed(0)
 
 
-# class CNode:
-#     def __init__(self, node_id):
-#         self.id = node_id
-
-
 class CGraph:
     # Initializer could be changed to take x, y and z domains, e.g. def __init__(self, [x_min, x_max], etc)
     def __init__(self):
@@ -42,27 +37,6 @@ class CGraph:
                 [print('{}, {}'.format(node, edge)) for edge in self.graph_dict[node]['edges']]
         pass
 
-    pass
-
-
-def ccw(A, B, C):
-    # return (C.y - A.y) * (B.x - A.x) > (B.y - A.y) * (C.x - A.x)
-    return (C[1] - A[1]) * (B[0] - A[0]) > (B[1] - A[1]) * (C[0] - A[0])
-
-
-def intersect(A, B, C, D):
-    return ccw(A, C, D) != ccw(B, C, D) and ccw(A, B, C) != ccw(A, B, D)
-
-
-def intersects_other_edges(_from, _to, graph_dic):
-    A, B = graph_dic[_from]['coords'], graph_dic[_to]['coords']
-    for node in graph_dic:
-        if node not in (_from, _to):
-            for edge in graph_dic[node]['edges']:
-                # print('Checking {}-{} intersecting with {}-{}'.format(_from, _to, node, edge))
-                C, D = graph_dic[node]['coords'], graph_dic[edge]['coords']
-                if intersect(A, B, C, D):
-                    return True
     pass
 
 
