@@ -85,5 +85,5 @@ def get_to_node(g, _from):
     pass
 
 
-for i in range(15):
-    network(i)
+# for i in range(15):
+#     network(i)
