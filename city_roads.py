@@ -73,7 +73,7 @@ if __name__ == "__main__":
                 if _to not in g.graph_dict[_from]['edges']:
                     edge_exists = False
                     g.add_edge(_from, _to)
-                    print('egde generated! from={} to={}'.format(_from, _to))
+                    # print('egde generated! from={} to={}'.format(_from, _to))
     # Print graph
     g.print_graph()
 
