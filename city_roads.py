@@ -45,9 +45,9 @@ class CGraph:
 #################################################################################
 
 
-if __name__ == "__main__":
+def network(n):
 
-    n = 10  # number of nodes (graph complexity)
+    # n = 8  # number of nodes (graph complexity)
     g = CGraph()  # later could input x, y, z domains to instantiate class
 
     # Loop until n nodes created
@@ -56,25 +56,34 @@ if __name__ == "__main__":
         if g.num_nodes <= 1:
             _from = g.add_node(g.num_nodes)
         else:
-            new_node = np.random.choice([True, False])
-            if new_node:
-                _from = g.add_node(g.num_nodes)
-            else:
-                _from = np.random.choice(list(g.get_node_ids()))
+            _from = np.random.choice(list(g.get_node_ids()))
         pass
 
         # Create new edge
         if g.num_nodes >= 2:
-            available_nodes = list(set(g.get_node_ids()) - {_from})
-            # Check if edge exists, else create a new one
-            edge_exists = True
-            while edge_exists:
-                _to = np.random.choice(available_nodes)
-                if _to not in g.graph_dict[_from]['edges']:
-                    edge_exists = False
-                    g.add_edge(_from, _to)
-                    # print('egde generated! from={} to={}'.format(_from, _to))
+            _to = get_to_node(g, _from)
     # Print graph
     g.print_graph()
 
     pass
+
+
+def get_to_node(g, _from):
+    new_node = np.random.choice([True, False])
+    if new_node:
+        _to = g.add_node(g.num_nodes)
+    else:
+        available_nodes = list(set(g.get_node_ids()) - {_from})
+        _to = np.random.choice(available_nodes)
+    # Only add edge if it doesn't exist already (here can also add more flags)
+    if _to not in g.graph_dict[_from]['edges']:
+        g.add_edge(_from, _to)
+        # print('egde generated! from={} to={}'.format(_from, _to), g.graph_dict)
+        return _to
+    else:
+        get_to_node(g, _from)
+    pass
+
+
+for i in range(15):
+    network(i)
