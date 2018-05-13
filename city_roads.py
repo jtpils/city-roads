@@ -1,5 +1,7 @@
 import numpy as np
+
 np.random.seed(0)
+
 
 # class CNode:
 #     def __init__(self, node_id):
@@ -18,7 +20,7 @@ class CGraph:
         if node_id not in self.graph_dict:
             # can later add handler to rare case when the coord already exists
             # x, y, z = np.random.randint(low=0, high=10 + 1, size=3)
-            x, y, z = np.round(np.random.random(size=3)*10, 1)  # between [0, 1.0) * 10
+            x, y, z = np.round(np.random.random(size=3) * 10, 1)  # between [0, 1.0) * 10
             self.graph_dict[node_id] = {'coords': (x, y, z), 'edges': []}
         return node_id
 
@@ -70,7 +72,6 @@ def intersects_other_edges(_from, _to, graph_dic):
 
 if __name__ == "__main__":
 
-
     n = 10  # number of nodes (graph complexity)
     g = CGraph()  # later could input x, y, z domains to instantiate class
 
@@ -93,21 +94,15 @@ if __name__ == "__main__":
         if g.num_nodes >= 2:
             # Check if edge exists, else create a new one
             edge_exists = True
-            edge_intersects = True
-            while edge_exists or edge_intersects:
+            while edge_exists:
                 # select random node from all others except the _from node
-                available_nodes = list(set(g.get_node_ids())-{_from})
+                available_nodes = list(set(g.get_node_ids()) - {_from})
                 _to = np.random.choice(available_nodes)
                 # Check if edge already in list and that it does not intersect others
-                if _to not in g.graph_dict[_from]['edges'] and not intersects_other_edges(_from, _to, g.graph_dict):
+                if _to not in g.graph_dict[_from]['edges']:
                     edge_exists = False
-                    edge_intersects = False
                     g.add_edge(_from, _to)
                     # print('i={}, egde generated! from={} to={}'.format(i, _from, _to))
-                    g.print_graph()
     g.print_graph()
 
     pass
-
-
-
