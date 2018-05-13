@@ -10,9 +10,7 @@ class CGraph:
         self.num_nodes = 0
         pass
 
-    def add_node(self, node_id=None):
-        if not node_id:
-            node_id = self.num_nodes
+    def add_node(self, node_id):
         self.num_nodes += 1
         # can later add handler to rare case when the coord already exists
         # x, y, z = np.random.randint(low=0, high=10 + 1, size=3)
@@ -22,7 +20,7 @@ class CGraph:
         return node_id
 
     def add_edge(self, _from, _to):
-        # Create node if it doesn't exist
+        # Create nodes if they don't exist before creating edge
         [self.add_node(node) for node in [_from, _to] if node not in self.graph_dict]
         self.graph_dict[_from]['edges'] += [_to]
         pass
@@ -56,11 +54,11 @@ if __name__ == "__main__":
     while g.num_nodes < n:
         # Create new node or take existing
         if g.num_nodes <= 1:
-            _from = g.add_node()
+            _from = g.add_node(g.num_nodes)
         else:
             new_node = np.random.choice([True, False])
             if new_node:
-                _from = g.add_node()
+                _from = g.add_node(g.num_nodes)
             else:
                 _from = np.random.choice(list(g.get_node_ids()))
         pass
