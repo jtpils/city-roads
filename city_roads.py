@@ -10,8 +10,9 @@ class CGraph:
         self.num_nodes = 0
         pass
 
-    def add_node(self):
-        node_id = self.num_nodes
+    def add_node(self, node_id=None):
+        if not node_id:
+            node_id = self.num_nodes
         self.num_nodes += 1
         # can later add handler to rare case when the coord already exists
         # x, y, z = np.random.randint(low=0, high=10 + 1, size=3)
@@ -21,6 +22,8 @@ class CGraph:
         return node_id
 
     def add_edge(self, _from, _to):
+        # Create node if it doesn't exist
+        [self.add_node(node) for node in [_from, _to] if node not in self.graph_dict]
         self.graph_dict[_from]['edges'] += [_to]
         pass
 
@@ -49,35 +52,31 @@ if __name__ == "__main__":
     n = 10  # number of nodes (graph complexity)
     g = CGraph()  # later could input x, y, z domains to instantiate class
 
+    # Loop until n nodes created
     while g.num_nodes < n:
-
-        # Generate new node or select random from existing ones
-
-        # Start if no nodes yet
-        if g.num_nodes == 0:
+        # Create new node or take existing
+        if g.num_nodes <= 1:
             _from = g.add_node()
         else:
             new_node = np.random.choice([True, False])
-            if new_node or g.num_nodes <= 1:
+            if new_node:
                 _from = g.add_node()
             else:
-                # select random node from existing ones
                 _from = np.random.choice(list(g.get_node_ids()))
         pass
 
-        # Create a new edge
+        # Create new edge
         if g.num_nodes >= 2:
+            available_nodes = list(set(g.get_node_ids()) - {_from})
             # Check if edge exists, else create a new one
             edge_exists = True
             while edge_exists:
-                # select random node from all others except the _from node
-                available_nodes = list(set(g.get_node_ids()) - {_from})
                 _to = np.random.choice(available_nodes)
-                # Check if edge already in list and that it does not intersect others
                 if _to not in g.graph_dict[_from]['edges']:
                     edge_exists = False
                     g.add_edge(_from, _to)
-                    # print('i={}, egde generated! from={} to={}'.format(i, _from, _to))
+                    print('egde generated! from={} to={}'.format(_from, _to))
+    # Print graph
     g.print_graph()
 
     pass
