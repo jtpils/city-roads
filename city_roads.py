@@ -51,11 +51,12 @@ if __name__ == "__main__":
 
     while g.num_nodes < n:
 
+        # Generate new node or select random from existing ones
+
         # Start if no nodes yet
         if g.num_nodes == 0:
             _from = g.add_node()
         else:
-            # Generate new node or select random from existing ones
             new_node = np.random.choice([True, False])
             if new_node or g.num_nodes <= 1:
                 _from = g.add_node()
