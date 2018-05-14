@@ -53,8 +53,6 @@ def select_to_node(g, _from):
         _to = np.random.choice(available_nodes)
     # Only add edge if it doesn't exist already (here can also add more flags)
     if _to not in g.graph_dict[_from]['edges']:
-        g.add_edge(_from, _to)
-        # print('egde generated! from={} to={}'.format(_from, _to), g.graph_dict)
         return _to
     else:
         select_to_node(g, _from)
@@ -78,6 +76,8 @@ if __name__ == "__main__":
         # Create new edge
         if g.num_nodes >= 2:
             _to = select_to_node(g, _from)
+            g.add_edge(_from, _to)
+            # print('egde generated! from={} to={}'.format(_from, _to), g.graph_dict)
     # Print graph
     g.print_graph()
 
