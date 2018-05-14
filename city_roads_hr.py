@@ -44,7 +44,7 @@ class CGraph:
 #################################################################################
 #################################################################################
 
-def get_to_node(g, _from):
+def select_to_node(g, _from):
     new_node = np.random.choice([True, False])
     if new_node:
         _to = g.add_node(g.num_nodes)
@@ -57,7 +57,7 @@ def get_to_node(g, _from):
         # print('egde generated! from={} to={}'.format(_from, _to), g.graph_dict)
         return _to
     else:
-        get_to_node(g, _from)
+        select_to_node(g, _from)
     pass
 
 
@@ -77,7 +77,7 @@ if __name__ == "__main__":
 
         # Create new edge
         if g.num_nodes >= 2:
-            _to = get_to_node(g, _from)
+            _to = select_to_node(g, _from)
     # Print graph
     g.print_graph()
 
