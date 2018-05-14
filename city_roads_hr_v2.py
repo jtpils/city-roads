@@ -19,7 +19,7 @@ class CGraph:
                 r2 = np.sqrt(x2 * x2 + y2 * y2 + z2 * z2)
                 diff = np.abs(r - r2)
                 if diff < 2:
-                    # print('r={}, r2={}, diff={}'.format(r, r2, diff))
+                    # If close, then return original node
                     return node
                 else:
                     self.num_nodes += 1
