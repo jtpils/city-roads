@@ -47,10 +47,7 @@ class CGraph:
 def select_to_node(g, _from):
     # Select node from new or existing
     new_node = np.random.choice([True, False])
-    if new_node:
-        _to = g.add_node(g.num_nodes)
-        return _to
-    else:
+    if not new_node:
         available_nodes = list(set(g.get_node_ids()) - {_from})
         _to = np.random.choice(available_nodes)
         # Only add edge if it doesn't exist already (here can also add more flags)
@@ -58,7 +55,8 @@ def select_to_node(g, _from):
             return _to
         else:
             select_to_node(g, _from)
-    pass
+    _to = g.add_node(g.num_nodes)
+    return _to
 
 
 if __name__ == "__main__":
